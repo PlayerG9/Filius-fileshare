@@ -3,4 +3,7 @@
 r"""
 
 """
+import application_setup
+application_setup.run()
+
 print("Hello World")
