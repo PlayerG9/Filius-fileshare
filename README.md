@@ -26,3 +26,16 @@ user@PC:~$ ./filius-fileshare/scripts/setup
 ```commandline
 user@PC:~$ /path/to/filis-fileshare/filius
 ```
+
+# Technical Stuff
+
+## File-System
+[refuse](https://github.com/pleiszenburg/refuse) is a Python module implemented using [`ctypes`](https://docs.python.org/3/library/ctypes.html) that provides a simple cross-platform interface to:
+
+- [libfuse](https://github.com/libfuse/libfuse)
+- [FUSE for macOS](https://osxfuse.github.io/)
+- [WinFsp](https://github.com/billziss-gh/winfsp)
+
+# Communication
+
+is based on the python socket library in combination with the [msgpack](https://msgpack.org/) package
