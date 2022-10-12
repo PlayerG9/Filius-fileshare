@@ -4,3 +4,7 @@ r"""
 
 """
 from .paths import *
+from .config import *
+
+
+loadConfig()
