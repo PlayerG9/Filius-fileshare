@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CODE=$(dirname "$0")
+
+"$CODE/.venv/bin/python3" -B -O "$CODE/src/filius"
