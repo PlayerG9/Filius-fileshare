@@ -22,3 +22,7 @@ def _getLocalDir():
     main = _sys.modules['__main__']
     return _path.abspath(_path.dirname(main.__file__))
 
+
+@_ft.cache
+def getMountPoint():
+    return _path.expanduser("~/felius")
