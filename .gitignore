@@ -1,6 +1,7 @@
 # Project
 .idea/
 local-files/
+~/MANUAL.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
