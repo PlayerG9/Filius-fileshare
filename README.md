@@ -38,4 +38,6 @@ user@PC:~$ /path/to/filis-fileshare/filius
 
 # Communication
 
-is based on the python socket library in combination with the [msgpack](https://msgpack.org/) package
+is based on the python socket library
+the serialization is either done with the [msgpack](https://msgpack.org/) package
+or the python-internal [marshal](https://docs.python.org/3.10/library/marshal.html) package
