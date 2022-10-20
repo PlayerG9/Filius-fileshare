@@ -16,6 +16,7 @@ class Felius(fuse.Operations):
     """
 
     def __call__(self, op, *args):
+        print([op, args])
         if not hasattr(self, op):
             raise FuseOSError(errno.EFAULT)
         return getattr(self, op)(*args)
