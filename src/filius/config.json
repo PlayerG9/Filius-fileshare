@@ -1,4 +1,6 @@
 {
   "mount": "~/felius",
-  "permanent": true
+  "permanent": true,
+  "group": "filius",
+  "port": 6520
 }
