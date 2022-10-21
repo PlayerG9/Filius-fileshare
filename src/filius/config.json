@@ -1,3 +1,4 @@
 {
-  "mount": "~/felius"
+  "mount": "~/felius",
+  "permanent": true
 }
