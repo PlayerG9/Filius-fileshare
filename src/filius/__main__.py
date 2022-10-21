@@ -7,12 +7,12 @@ import application_setup
 
 
 def main():
-    from filesystem import fuse, Felius
+    from filesystem import fuse, FeliusOperations
     from filesystem.mountpoint import MountPoint
 
     with MountPoint() as mount:
         fuse.FUSE(
-            operations=Felius(),
+            operations=FeliusOperations(),
             mountpoint=mount,
             foreground=True,
             # nothreads=True,

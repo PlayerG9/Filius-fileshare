@@ -9,11 +9,27 @@ import refuse.high as fuse
 from refuse.high import FuseOSError
 
 
-class Felius(fuse.Operations):
+class FeliusOperations(fuse.Operations):
     """
     When in doubt of what an operation should do, check the FUSE header file
     or the corresponding system call man page.
     """
+    def __init__(self):
+        pass
+
+    def init(self, path):
+        """
+        Called on filesystem initialization. (Path is always /)
+
+        Use it instead of __init__ if you start threads on initialization.
+        """
+
+        pass
+
+    def destroy(self, path):
+        """Called on filesystem destruction. Path is always /"""
+
+        pass
 
     def __call__(self, op, *args):
         print([op, args])
@@ -21,8 +37,8 @@ class Felius(fuse.Operations):
             raise FuseOSError(errno.EFAULT)
         return getattr(self, op)(*args)
 
-    def access(self, path, amode):
-        return 0
+    # def access(self, path, amode):
+    #     return 0
 
     bmap = None
 
@@ -43,19 +59,14 @@ class Felius(fuse.Operations):
 
         raise FuseOSError(errno.EROFS)
 
-    def destroy(self, path):
-        """Called on filesystem destruction. Path is always /"""
+    # def flush(self, path, fh):
+    #     return 0
 
-        pass
+    # def fsync(self, path, datasync, fh):
+    #     return 0
 
-    def flush(self, path, fh):
-        return 0
-
-    def fsync(self, path, datasync, fh):
-        return 0
-
-    def fsyncdir(self, path, datasync, fh):
-        return 0
+    # def fsyncdir(self, path, datasync, fh):
+    #     return 0
 
     def getattr(self, path, fh=None):
         """
@@ -76,17 +87,8 @@ class Felius(fuse.Operations):
     # def getxattr(self, path, name, position=0):
     #     raise FuseOSError(ENOTSUP)
 
-    def init(self, path):
-        """
-        Called on filesystem initialization. (Path is always /)
-
-        Use it instead of __init__ if you start threads on initialization.
-        """
-
-        pass
-
-    def ioctl(self, path, cmd, arg, fip, flags, data):
-        raise FuseOSError(errno.ENOTTY)
+    # def ioctl(self, path, cmd, arg, fip, flags, data):
+    #     raise FuseOSError(errno.ENOTTY)
 
     def link(self, target, source):
         """creates a hard link `target -> source` (e.g. ln source target)"""
@@ -101,26 +103,26 @@ class Felius(fuse.Operations):
     def mkdir(self, path, mode):
         raise FuseOSError(errno.EROFS)
 
-    def mknod(self, path, mode, dev):
-        raise FuseOSError(errno.EROFS)
+    # def mknod(self, path, mode, dev):
+    #     raise FuseOSError(errno.EROFS)
 
-    def open(self, path, flags):
-        """
-        When raw_fi is False (default case), open should return a numerical
-        file handle.
+    # def open(self, path, flags):
+    #     """
+    #     When raw_fi is False (default case), open should return a numerical
+    #     file handle.
+    #
+    #     When raw_fi is True the signature of open becomes:
+    #         open(self, path, fi)
+    #
+    #     and the file handle should be set directly.
+    #     """
+    #
+    #     return 0
 
-        When raw_fi is True the signature of open becomes:
-            open(self, path, fi)
-
-        and the file handle should be set directly.
-        """
-
-        return 0
-
-    def opendir(self, path):
-        """Returns a numerical file handle."""
-
-        return 0
+    # def opendir(self, path):
+    #     """Returns a numerical file handle."""
+    #
+    #     return 0
 
     def read(self, path, size, offset, fh):
         """Returns a string containing the data requested."""
@@ -138,11 +140,11 @@ class Felius(fuse.Operations):
     def readlink(self, path):
         raise FuseOSError(errno.ENOENT)
 
-    def release(self, path, fh):
-        return 0
+    # def release(self, path, fh):
+    #     return 0
 
-    def releasedir(self, path, fh):
-        return 0
+    # def releasedir(self, path, fh):
+    #     return 0
 
     # def removexattr(self, path, name):
     #     raise FuseOSError(ENOTSUP)
