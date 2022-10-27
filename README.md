@@ -8,9 +8,16 @@ Decentralised filesharing in the local network
 
 # How does it work
 
-Other users have access to the files you marked as shared
+Other users have access to the files you put into your filis folder
 
-![](README.assets/how-does-it-work.jpg)
+![how does this work](README.assets/how-does-it-work.jpg)
+
+## In detail
+
+If you create a new file. it's created in your filesystem.
+But is accessible and editable by other users in the same system.
+This means that you don't have all files of the others saved on your computer.
+But as long as they are also running filius you can access them.
 
 # Installation and running
 
