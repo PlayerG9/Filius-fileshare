@@ -25,5 +25,5 @@ def getConfig(*keys, default=...):
 @_ft.cache
 def loadConfig() -> dict:
     import json
-    with open(paths.local('config.json'), 'r') as file:
+    with open(paths.sourceFile('config.json'), 'r') as file:
         return json.load(file)

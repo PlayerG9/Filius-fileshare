@@ -9,7 +9,7 @@ import utility
 
 
 def run():
-    with open(utility.local('package-list.txt'), 'r') as file:
+    with open(utility.sourceFile('package-list.txt'), 'r') as file:
         for line in file:
             if not line.strip():
                 continue
