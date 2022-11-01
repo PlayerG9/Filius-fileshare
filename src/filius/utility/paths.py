@@ -9,19 +9,35 @@ import functools as _ft
 import subprocess as _sp
 
 
-def local(*args):
+def sourceFile(*args):
     return _path.abspath(
         _path.join(
-            _getLocalDir(),
+            _getSourceDirectory(),
             *args
         )
     )
 
 
 @_ft.cache
-def _getLocalDir():
+def _getSourceDirectory():
     main = _sys.modules['__main__']
     return _path.abspath(_path.dirname(main.__file__))
+
+
+def filiusFile(path: str):
+    return _path.abspath(
+        _path.join(
+            getLocalFiliusDirectory(),
+            path.lstrip(_path.sep)
+        )
+    )
+
+
+@_ft.cache
+def getLocalFiliusDirectory():
+    return _path.abspath(
+        _path.expanduser("~/.filius/files")
+    )
 
 
 @_ft.cache
