@@ -2,5 +2,5 @@
 
 cd "$(dirname "$0")/.." || exit 1
 
-#pandoc README.md -o MANUAL.pdf --pdf-engine wkhtmltopdf
-pandoc README.md -o MANUAL.html
+pandoc README.md --from markdown -o MANUAL.pdf --listings --pdf-engine wkhtmltopdf --pdf-engine-opt=--enable-local-file-access
+#pandoc README.md -o MANUAL.html
