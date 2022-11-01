@@ -3,10 +3,13 @@
 r"""
 
 """
+import logging
+import socket
 import stat
 import errno
 import refuse.high as fuse
 from refuse.high import FuseOSError
+from network.netconnector import NetConnector
 
 
 class FeliusOperations(fuse.Operations):
@@ -15,7 +18,15 @@ class FeliusOperations(fuse.Operations):
     or the corresponding system call man page.
     """
     def __init__(self):
-        pass
+        self.network = NetConnector()
+
+    def __enter__(self):
+        self.network.join()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_val:
+            logging.error(str(exc_val), exc_info=exc_val)
+        self.network.leave()
 
     def init(self, path):
         """
@@ -84,19 +95,19 @@ class FeliusOperations(fuse.Operations):
             raise FuseOSError(errno.ENOENT)
         return dict(st_mode=(stat.S_IFDIR | 0o755), st_nlink=2)
 
-    # def getxattr(self, path, name, position=0):
-    #     raise FuseOSError(ENOTSUP)
+    def getxattr(self, path, name, position=0):
+        raise FuseOSError(errno.ENOTSUP)
 
     # def ioctl(self, path, cmd, arg, fip, flags, data):
     #     raise FuseOSError(errno.ENOTTY)
 
-    def link(self, target, source):
-        """creates a hard link `target -> source` (e.g. ln source target)"""
+    # def link(self, target, source):
+    #     """creates a hard link `target -> source` (e.g. ln source target)"""
+    #
+    #     raise FuseOSError(errno.EROFS)
 
-        raise FuseOSError(errno.EROFS)
-
-    # def listxattr(self, path):
-    #     return []
+    def listxattr(self, path):
+        return []
 
     lock = None
 
@@ -134,8 +145,15 @@ class FeliusOperations(fuse.Operations):
         Can return either a list of names, or a list of (name, attrs, offset)
         tuples. attrs is a dict as in getattr.
         """
+        content = [".", ".."]
 
-        return [".", ".."]
+        if path == "/":
+            content.append("filius-members")
+
+        if path == "/filius-members":
+            content.append(socket.gethostname())
+
+        return content
 
     def readlink(self, path):
         raise FuseOSError(errno.ENOENT)
@@ -146,8 +164,8 @@ class FeliusOperations(fuse.Operations):
     # def releasedir(self, path, fh):
     #     return 0
 
-    # def removexattr(self, path, name):
-    #     raise FuseOSError(ENOTSUP)
+    def removexattr(self, path, name):
+        raise FuseOSError(errno.ENOTSUP)
 
     def rename(self, old, new):
         raise FuseOSError(errno.EROFS)
@@ -155,8 +173,8 @@ class FeliusOperations(fuse.Operations):
     def rmdir(self, path):
         raise FuseOSError(errno.EROFS)
 
-    # def setxattr(self, path, name, value, options, position=0):
-    #     raise FuseOSError(ENOTSUP)
+    def setxattr(self, path, name, value, options, position=0):
+        raise FuseOSError(errno.ENOTSUP)
 
     def statfs(self, path):
         """
